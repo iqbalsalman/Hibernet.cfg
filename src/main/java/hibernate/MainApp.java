@@ -20,17 +20,24 @@ public class MainApp {
 		
 		String result = getNativeQuery( session, "select version()");
 		System.out.println(result);
+                
+//                List<Departement> listdept= getDept(session);
+//		for (Departement de : listdept) {
+//			System.out.println(de.getNamaDepartement()+"employee "+de.getEmployee().getNama());
+//		}
 		
 		simpanPegawai(session);
+                
+               
 		
 //		updatePegawai(session);
 //		updatePegawaiDua(session);
 //		deletePegawai(session);
-		List<Employee> listPegawai= getListPegawai(session);
-		for (Employee employee : listPegawai) {
-			System.out.println(employee.getNama());
-		}
-		
+//		List<Employee> listPegawai= getListPegawai(session);
+//		for (Employee employee : listPegawai) {
+//			System.out.println(employee.getNama()+"dep "+employee.getDepartement().getNamaDepartement());
+//		}
+//		
 		session.getTransaction().commit();
 		session.close();
 		
@@ -42,7 +49,7 @@ public class MainApp {
 //	private static Integer simpanPegawai(Session session) {
 //                Departement dep = new Departement();
 //		dep.setNamaDepartement("Department IT");
-//		dep.setIdEntry("jalan");
+//		dep.setIdEntry("j");
 //		dep.setTglEntry(new Timestamp(System.currentTimeMillis()));
 //		Employee emp = new Employee();
 //		emp.setNama("ABG");
@@ -59,18 +66,22 @@ public class MainApp {
 //		kec.setAlamat("Desa Dukuh karya");
 		//kec.setIdEntry("okes");
 		//kec.setTglEntry(new Timestamp(System.currentTimeMillis()));
+                
+                Alamat al = new Alamat();
+                al.setNama("Desa Dukuh karya");
+		al.setKecamatan("Rengasdengklok");
+                al.setKecamata(kec);
+		//al.setIdEntry("oke");
+		//al.setTglEntry(new Timestamp(System.currentTimeMillis()));
+                //al.setStudent(su);
+                //al.setKecamatan(kec)
                 Student su = new Student();
 		su.setNama("Muhamad Iqbal Salman");
                 su.setAlamat("Desa Dukuh karya");
 		su.setIdEntry("setId");
 		su.setTglEntry(new Timestamp(System.currentTimeMillis()));
-                Alamat al = new Alamat();
-                al.setNama("Desa Dukuh karya");
-		al.setNama("Rengasdengklok");
-		//al.setIdEntry("oke");
-		//al.setTglEntry(new Timestamp(System.currentTimeMillis()));
-                //al.setStudent(su);
-                //al.setKecamatan(kec)
+                su.setAlamats(al);
+                
 		return (Integer) session.save(su);
 	}
 	
@@ -105,6 +116,15 @@ public class MainApp {
 		    session.delete( emp); 
 		
 	}
+        
+        
+        private static List<Employee> getListPegawaiDanDept(Session session){
+            return session.createQuery("select p from Employee p JOINT FETCH p.departement").getResultList();
+        }
+        
+         private static List<Departement> getDept(Session session){
+            return session.createQuery("select p from Departement p JOIN FETCH p.employee").getResultList();
+        }
 	
 	
 	
