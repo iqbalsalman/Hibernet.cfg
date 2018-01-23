@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+		<property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/admin</property>
+		<property name="hibernate.connection.username">hr</property>
+		<property name="hibernate.connection.password">salman</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+		<property name="hbm2ddl.auto">update</property>
+		<mapping class="hibernate.model.Employee"/> 
+                <mapping class="hibernate.model.Departement"/> 
+                <mapping class="hibernate.model.Student"/> 
+                <mapping class="hibernate.model.Kecamatan"/> 
+                <mapping class="hibernate.model.Alamat"/> 
+	</session-factory>
+</hibernate-configuration>
