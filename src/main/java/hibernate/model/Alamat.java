@@ -39,6 +39,17 @@ public class Alamat {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_kecamatan")
     private Kecamatan kecamatan;
+    private Student student;
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+    
+    
 
     public String getNama() {
         return nama;
