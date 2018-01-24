@@ -22,7 +22,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Alamat", schema = "public")
-public class Alamat{
+public class Alamat {
 
     private static final long serialVersionUID = -4187975013443944769L;
 
@@ -30,20 +30,16 @@ public class Alamat{
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_alamat", updatable = false, nullable = false)
     private int id;
-    
+
     @Column(name = "nama", length = 50)
     private String nama;
 
-    @Column(name = "Kecamatan", length = 50)
-    private String kecamatan;
-    
-     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-     @JoinColumn(name = "id_kecamatan")
 
-    private Kecamatan kecamata;
 
-    
-            
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_kecamatan")
+    private Kecamatan kecamatan;
+
     public String getNama() {
         return nama;
     }
@@ -60,30 +56,20 @@ public class Alamat{
         this.id = id;
     }
 
-    public String getKecamatan() {
+    /**
+     * @return the kecamatan
+     */
+    public Kecamatan getKecamatan() {
         return kecamatan;
     }
 
-    public void setKecamatan(String kecamatan) {
+    /**
+     * @param kecamatan the kecamatan to set
+     */
+    public void setKecamatan(Kecamatan kecamatan) {
         this.kecamatan = kecamatan;
     }
 
-    /**
-     * @return the kecamata
-     */
-    public Kecamatan getKecamata() {
-        return kecamata;
-    }
 
-    /**
-     * @param kecamata the kecamata to set
-     */
-    public void setKecamata(Kecamatan kecamata) {
-        this.kecamata = kecamata;
-    }
-
-
-    
-    
 
 }

@@ -1,7 +1,7 @@
 package hibernate.model;
 
+import java.util.Set;
 import javax.persistence.CascadeType;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,50 +9,59 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name= "pegawai", schema="public")
+@Table(name = "pegawai", schema = "public")
 public class Employee extends BaseClass {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="id", updatable = false, nullable = false)
-	private int id;
-	
-	@Column(name = "nama", length= 50)
-	private String nama;
-	
-	@Column(name = "alamat", length = 150)
-	private String alamat;
-        
-        @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-        @JoinColumn(name = "id_dept")
-        private Departement departement;
 
-	public int getId() {
-		return id;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false, nullable = false)
+    private int id;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    @Column(name = "nama", length = 50)
+    private String nama;
 
-	public String getNama() {
-		return nama;
-	}
+    @Column(name = "alamat", length = 150)
+    private String alamat;
 
-	public void setNama(String nama) {
-		this.nama = nama;
-	}
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_dept")
+    private Departement departement;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
+//          private Employee employee; 
+    private Set<Task> listTugas;
 
-	public String getAlamat() {
-		return alamat;
-	}
+    public void setListTugas(Set<Task> listTugas) {
+        this.listTugas = listTugas;
+    }
 
-	public void setAlamat(String alamat) {
-		this.alamat = alamat;
-	}
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public String getAlamat() {
+        return alamat;
+    }
+
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
+    }
 
     /**
      * @return the departement
@@ -67,9 +76,5 @@ public class Employee extends BaseClass {
     public void setDepartement(Departement departement) {
         this.departement = departement;
     }
-
-
-	
-	
 
 }

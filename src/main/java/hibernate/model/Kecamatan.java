@@ -1,15 +1,19 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * and open the template isn the editor.
  */
 package hibernate.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -29,9 +33,10 @@ public class Kecamatan {
 
     @Column(name = "nama", length = 50)
     private String nama;
-    
-    
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_alamat")
+    private Alamat alamat;
 
     public int getId() {
         return id;
@@ -49,8 +54,18 @@ public class Kecamatan {
         this.nama = nama;
     }
 
+    /**
+     * @return the alamat
+     */
+    public Alamat getAlamat() {
+        return alamat;
+    }
 
-    
-    
+    /**
+     * @param alamat the alamat to set
+     */
+    public void setAlamat(Alamat alamat) {
+        this.alamat = alamat;
+    }
 
 }

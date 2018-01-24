@@ -10,9 +10,13 @@ import hibernate.util.HibernateUtil;
 import hibernate.model.Employee;
 import hibernate.model.Kecamatan;
 import hibernate.model.Student;
+import hibernate.model.Task;
 import java.util.List;
+import java.util.Set;
 
 public class MainApp {
+    
+    
 
 	public static void main(String[] args) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -21,13 +25,26 @@ public class MainApp {
 		String result = getNativeQuery( session, "select version()");
 		System.out.println(result);
                 
-//                List<Departement> listdept= getDept(session);
+//               List<Departement> listdept= getDept(session);
 //		for (Departement de : listdept) {
 //			System.out.println(de.getNamaDepartement()+"employee "+de.getEmployee().getNama());
 //		}
+                
+            List<Student> listdept = getStudent(session);
+            for (Student de : listdept) {
+                System.out.println(de.getIdEntry() + de.getNama() + de.getTglEntry() + "alamat " + de.getAlamat());
+            }
+            List<Alamat> listkec = getAlamat(session);
+            for (Alamat de : listkec) {
+                System.out.println(de.getNama() + "kecamatan " + de.getKecamatan());            }
+            List<Kecamatan> listal = getKecamatan(session);
+            for (Kecamatan de : listal) {
+                System.out.println(de.getNama());
+		}
 		
 		simpanPegawai(session);
                 
+               
                
 		
 //		updatePegawai(session);
@@ -57,34 +74,51 @@ public class MainApp {
 //		emp.setIdEntry("TIME");
 //		emp.setTglEntry(new Timestamp(System.currentTimeMillis()));
 //                emp.setDepartement(dep);
-//		return (Integer) session.save(emp);
+//		int hasil = (Integer) session.save(emp);
+//                
+//                Task task = new Task();
+//                task.setNamaTugas("Tugas 23");
+//                task.setIdEntry("entrytas23");
+//                task.setEmployee(emp);
+//                task.setTglEntry(new Timestamp(System.currentTimeMillis()));
+//                task = new Task();
+//                task.setNamaTugas("Tugas 23");
+//                task.setIdEntry("entrytas23");
+//                task.setEmployee(emp);
+//                task.setTglEntry(new Timestamp(System.currentTimeMillis()));
+//                session.save(task);
+//                session.getTransaction().commit();
+//                
+//                return hasil;
 //	}
         
+//        private static void deletePegawaiDua(Session session){
+//            return session.cr
+//        }
+        
         private static Integer simpanPegawai(Session session) {
-                Kecamatan kec = new Kecamatan();
-		kec.setNama("Rengasdengklok");
-//		kec.setAlamat("Desa Dukuh karya");
-		//kec.setIdEntry("okes");
-		//kec.setTglEntry(new Timestamp(System.currentTimeMillis()));
-                
-                Alamat al = new Alamat();
-                al.setNama("Desa Dukuh karya");
-		al.setKecamatan("Rengasdengklok");
-                al.setKecamata(kec);
-		//al.setIdEntry("oke");
-		//al.setTglEntry(new Timestamp(System.currentTimeMillis()));
-                //al.setStudent(su);
-                //al.setKecamatan(kec)
-                Student su = new Student();
-		su.setNama("Muhamad Iqbal Salman");
-                su.setAlamat("Desa Dukuh karya");
-		su.setIdEntry("setId");
-		su.setTglEntry(new Timestamp(System.currentTimeMillis()));
-                su.setAlamats(al);
-                
-		return (Integer) session.save(su);
-	}
+        Kecamatan kec = new Kecamatan();
+        kec.setNama("Selow");
+        Alamat al = new Alamat();
+        al.setNama("Yoman");
+        al.setKecamatan(kec);
+        Student student = new Student();
+        student.setNama("DIO");
+        student.setAlamat(al);
+        student.setIdEntry("stu02");
+        student.setTglEntry(new Timestamp(System.currentTimeMillis()));
+        
+        return (Integer) session.save(student);
+    }
 	
+//         private static Set<Employee> getListPegawaiDanTask(Session session){
+//         List<Employee> listData=
+//                 Session.createQuery("select p from Employee p JOIN FETCH p.listTugas where p.id= : id ")
+//                 .setParameter("id",42)
+//                 get.ResultList();
+//                 return new HashSet<>(listData);
+//                    
+//                }
 //	Perintah Select Semua Pegawai
 	private static List<Employee> getListPegawai(Session session){
 		return session.createQuery("select d from Employee d ").getResultList();
@@ -119,7 +153,17 @@ public class MainApp {
         
         
         private static List<Employee> getListPegawaiDanDept(Session session){
-            return session.createQuery("select p from Employee p JOINT FETCH p.departement").getResultList();
+            return session.createQuery("select p from Employee p JOIN FETCH p.departement").getResultList();
+        }
+        
+        private static List<Student> getStudent(Session session){
+            return session.createQuery("select b from Student b JOIN FETCH b.alamat").getResultList();
+        }
+        private static List<Alamat> getAlamat(Session session){
+            return session.createQuery("select s from Alamat s JOIN FETCH s.kecamatan").getResultList();
+        }
+         private static List<Kecamatan> getKecamatan(Session session){
+            return session.createQuery("select a from Kecamatan a JOIN FETCH a.alamat").getResultList();
         }
         
          private static List<Departement> getDept(Session session){

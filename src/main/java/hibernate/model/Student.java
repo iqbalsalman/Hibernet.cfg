@@ -20,28 +20,23 @@ import javax.persistence.Table;
  *
  * @author iqbal
  */
- @Entity
- @Table(name = "student", schema = "public")
+@Entity
+@Table(name = "student", schema = "public")
 public class Student extends BaseClass {
-        private static final long serialVersionUID = -4187975013443944769L;
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
-        @Column(name = "id_studens", updatable = false, nullable = false)
-    
+    private static final long serialVersionUID = -4187975013443944769L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_studens", updatable = false, nullable = false)
     private int id;
-    
-    @Column(name = "nama", length= 50)
+
+    @Column(name = "nama", length = 50)
     private String nama;
-    
-    @Column(name = "Alamat", length= 150)
-    private String alamat;
-    
-     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-     @JoinColumn(name = "id_alamat")
-     
-     private Alamat alamats;
-    
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_alamat")
+    private Alamat alamat;
 
     public int getId() {
         return id;
@@ -59,28 +54,18 @@ public class Student extends BaseClass {
         this.nama = nama;
     }
 
-    public String getAlamat() {
+    /**
+     * @return the alamat
+     */
+    public Alamat getAlamat() {
         return alamat;
     }
 
-    public void setAlamat(String Alamat) {
+    /**
+     * @param alamat the alamat to set
+     */
+    public void setAlamat(Alamat alamat) {
         this.alamat = alamat;
     }
 
-    /**
-     * @return the alamats
-     */
-    public Alamat getAlamats() {
-        return alamats;
-    }
-
-    /**
-     * @param alamats the alamats to set
-     */
-    public void setAlamats(Alamat alamats) {
-        this.alamats = alamats;
-    }
-    
-    
-    
 }
