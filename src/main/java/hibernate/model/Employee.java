@@ -31,8 +31,12 @@ public class Employee extends BaseClass {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_dept")
     private Departement departement;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "employee")
-	private Set<Task> listTugas;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee")
+    private Set<Task> listTugas;
+
+    public Set<Task> getListTugas() {
+        return listTugas;
+    }
 
     public void setListTugas(Set<Task> listTugas) {
         this.listTugas = listTugas;
@@ -74,14 +78,6 @@ public class Employee extends BaseClass {
      */
     public void setDepartement(Departement departement) {
         this.departement = departement;
-    }
-
-    public Set<Task> getListTugas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public String getName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

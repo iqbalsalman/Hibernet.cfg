@@ -41,7 +41,7 @@ public class MainApp {
         Set<Employee> listPegTask =  getListPegawaiDanTask( session);//
 		for (Employee employee : listPegTask) {
 			Set<Task> listTugas = employee.getListTugas();
-			System.out.println(employee.getName()+"  id " +employee.getId());
+			System.out.println(employee.getNama()+"  id " +employee.getId());
 			for (Task task : listTugas) {
 				System.out.println( "  tugas "+task.getNamaTugas());
 			}
@@ -117,7 +117,7 @@ public class MainApp {
 	private static Set<Employee> getListPegawaiDanTask(Session session) {
 		List<Employee> listData = 
 				session.createQuery(" select p from Employee p JOIN FETCH p.listTugas where p.id = :id ")
-				.setParameter("id", 42)
+				.setParameter("id", 44)
 				.getResultList();
 		return new HashSet<>(listData);
 
